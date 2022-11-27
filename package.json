@@ -16,5 +16,12 @@
   "bugs": {
     "url": "https://github.com/DraconMarius/noSQL-BE/issues"
   },
-  "homepage": "https://github.com/DraconMarius/noSQL-BE#readme"
+  "homepage": "https://github.com/DraconMarius/noSQL-BE#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^6.0.13"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.9"
+  }
 }
