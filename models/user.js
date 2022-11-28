@@ -14,17 +14,21 @@ const userSchema = new Schema(
         },
         //referencing _id of other users
         friendList: [{
-            type: mongoose.Schema.Types.ObjectId, ref: 'User'
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
         }],
         //nested inside users
         thoughts: [thoughtSchema],
     },
     {
         toJSON: {
-            getters: true,
+            virtuals: true,
         },
     }
 );
+//creating virtuals to show friendlist length:
+userSchema.virtual('friendCount')
+
 
 const User = model('user', userSchema);
 
