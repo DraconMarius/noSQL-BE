@@ -14,7 +14,7 @@ const userSchema = new Schema(
         },
         //referencing _id of other users
         friendList: [{
-            type: mongoose.Schema.Types.ObjectId,
+            type: Schema.Types.ObjectId,
             ref: 'User'
         }],
         //nested inside users

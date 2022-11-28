@@ -8,7 +8,7 @@ const reactSchema = new Schema(
             max_Length: 80,
         },
         author: {
-            type: mongoose.Schema.Types.ObjectId, ref: "User"
+            type: Schema.Types.ObjectId, ref: "User"
         },
         created_At: {
             type: Date,
@@ -16,6 +16,8 @@ const reactSchema = new Schema(
         },
     });
 
-const React = model('react', reactSchema);
+//similar to thought, we are nesting reaction in each thought.
+//exporting the schema
+// const React = model('react', reactSchema);
 
-module.exports = React;
+module.exports = reactSchema;

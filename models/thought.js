@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose');
-const reactSchema = require('./react');
+const React = require('./react');
 
 const thoughtSchema = new Schema(
     {
@@ -9,13 +9,13 @@ const thoughtSchema = new Schema(
             max_Length: 80,
         },
         author: {
-            type: mongoose.Schema.Types.ObjectId, ref: 'User'
+            type: Schema.Types.ObjectId, ref: 'User'
         },
         created_At: {
             type: Date,
             default: Date.now()
         },
-        reaction: [reactSchema],
+        reaction: [React],
 
     }, {
     toJSON: {
@@ -28,7 +28,7 @@ const thoughtSchema = new Schema(
 thoughtSchema.virtual('reactionCount').get(function () {
     return this.reactions.length;
 });
+//since we are nesting thoughts inside Users, directly export schema and not model
+// const Thought = model('thought', thoughtSchema);
 
-const Thought = model('thought', thoughtSchema);
-
-module.exports = Thought;
+module.exports = thoughtSchema;
