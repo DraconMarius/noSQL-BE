@@ -6,7 +6,7 @@
 
 A restful API utilizging Mongoose (MongoDB, noSQL) to track Users, Thoughts, and reaction. This API has the basic crud routes for each model/subdocuments. Feel free to click below for a video demo of the routes in action within Insomnia!
 
-[Click here for a demo!]()
+[Click here for a demo!](https://drive.google.com/file/d/1TDWxk0c-53kI843-XD_B31-HnI6iKiTF/view)
 
 ## Usage
 
@@ -21,7 +21,7 @@ and then feel free to navidate to the routes within your browser, or test them w
 
 ## Demo Link / Media
 *(feel free to click on the gif to go to a **video demo** in Google Drive!)*
-[<img src="./assets/demo.gif" alt='click2go2vid'>](https://drive.google.com/file/d/10RLTokV4gq741e2DIBr35FQamOFRNuwP/view) 
+[Click here for a demo!](https://drive.google.com/file/d/1TDWxk0c-53kI843-XD_B31-HnI6iKiTF/view)
 
 
 ## License
