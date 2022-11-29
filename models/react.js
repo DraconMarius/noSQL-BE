@@ -14,7 +14,14 @@ const reactSchema = new Schema(
             type: Date,
             default: Date.now()
         },
-    });
+
+    },
+    {
+        toJSON: {
+            virtuals: true,
+        },
+    }
+);
 
 //similar to thought, we are nesting reaction in each thought.
 //exporting the schema

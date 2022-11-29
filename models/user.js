@@ -29,9 +29,12 @@ const userSchema = new Schema(
     }
 );
 //creating virtuals to show friendlist length:
-thoughtSchema.virtual('friendCount').get(function () {
-    return this.friendList.length;
-});
+// userSchema.virtual('friendCount', {
+//     ref: 'user',
+//     localField: 'friendList',
+//     foreignField: 'user',
+//     count: true
+// });
 
 
 const User = model('user', userSchema);

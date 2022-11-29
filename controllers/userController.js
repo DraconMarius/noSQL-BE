@@ -8,10 +8,11 @@ module.exports = {
             //exclude __v
             .select('-__v')
             .populate({
-                path: "friendList", select: '_id, userName'
+                path: "friendList", select: 'userName',
             })
+            // .populate('friendCount')
             .then((allData) => {
-                console.log(allData);
+                console.log(allData)//.friendCount;
                 res.json(allData);
             })
             .catch((err) => {
@@ -38,7 +39,7 @@ module.exports = {
         User.findOne({ _id: req.params.userID })
             .select('-__v')
             .populate({
-                path: "friendList", select: '_id, userName'
+                path: "friendList", select: 'userName'
             })
             .populate({
                 path: "thoughts", select: '-__v'
