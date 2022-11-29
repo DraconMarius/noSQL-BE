@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+const { Schema } = require('mongoose');
 
 const reactSchema = new Schema(
     {
@@ -8,7 +8,7 @@ const reactSchema = new Schema(
             max_Length: 80,
         },
         author: {
-            type: Schema.Types.ObjectId, ref: "User"
+            type: Schema.Types.ObjectId, ref: "user"
         },
         created_At: {
             type: Date,

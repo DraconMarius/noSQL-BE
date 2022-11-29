@@ -7,7 +7,7 @@ const thoughtSchema = new Schema(
         thoughtText: {
             type: String,
             required: true,
-            max_Length: 80,
+            max_Length: 280,
         },
         author: {
             type: Schema.Types.ObjectId, ref: 'User'
@@ -23,13 +23,14 @@ const thoughtSchema = new Schema(
         getters: true,
         virtuals: true,
     },
+    id: false,
 });
 
 //virtual for reaction count
-thoughtSchema.virtual('reactionCount').get(function () {
-    return this.reactions.length;
-});
-//since we are nesting thoughts inside Users, directly export schema and not model
-// const Thought = model('thought', thoughtSchema);
+// thoughtSchema.virtual('reactionCount').get(function () {
+//     return this.reactions.length; == reading undefined for some reason
+// });
 
-module.exports = thoughtSchema;
+const Thought = model('Thought', thoughtSchema);
+
+module.exports = Thought;

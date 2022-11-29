@@ -8,6 +8,9 @@ module.exports = {
             //exclude __v
             .select('-__v')
             .populate({
+                path: "author", select: 'userName'
+            })
+            .populate({
                 path: "reaction", select: 'reactBody, author'
             })
             .then((thoughtData) => {
@@ -23,12 +26,17 @@ module.exports = {
     //POST new Thought
     newThought(req, res) {
         Thought.create(req.body)
-            .populate({
-                path: "reaction", select: 'reactBody, author'
-            })
             .then((newThoughtData) => {
-                console.log("created new thought");
-                res.json(newThoughtData);
+                return User.findOneAndUpdate(
+                    { _id: req.body.author },
+                    { $addToSet: { thoughts: _id } },
+                    { new: true }
+                )
+            })
+            .then((user) => {
+                !user
+                    ? res.satatus(400).json({ warning: "error linking thought to user, user ID incorrect" })
+                    : res.json("created new thought");
             })
             .catch((err) => {
                 console.log(err);
@@ -36,24 +44,27 @@ module.exports = {
             });
     },
 
-    //GET thoughts by user ID
+    //GET thoughts by thought ID
     getByID(req, res) {
-        Thought.find({ _id: req.params.userID })
+        Thought.findOne({ _id: req.params.thoughtID })
             .select('-__v')
             .populate({
                 path: "reaction", select: 'reactBody, author'
             })
-            .then((userData) => {
+            .populate({
+                path: "author", select: 'userName'
+            })
+            .then((postData) => {
                 //ternary statement: if userData does not exists:
-                !userData
-                    ? res.status(404).json({ warning: 'Unknown User' })
-                    : res.json(userData);
+                !postData
+                    ? res.status(404).json({ warning: 'Unknown Post ID' })
+                    : res.json(postData);
             });
     },
 
     //POST update by thought ID
     updateByID(req, res) {
-        Thought.findOneAndUpdate({ _id: req.params.userID }, req.body, {
+        Thought.findOneAndUpdate({ _id: req.params.thoughtID }, req.body, {
             //return the updated version
             new: true,
             runValidators: true,
@@ -66,16 +77,26 @@ module.exports = {
     },
 
 
-    //delete thought by ID
+    //delete Thought
     deleteThought(req, res) {
-        User.findOneAndDelet({ _id: req.params.thoughtID })
-            .then(deleted => {
-                !deleted
-                    ? res.status(404).json({ warning: 'unknown User' })
-                    : res.json(deleted);
+        Thought.findOneAndDelete({ _id: req.params.thoughtID })
+            .then((deletedThought) => {
+                return User.findOneAndUpdate(
+                    { thoughts: req.params.thoughtID },
+                    { $pull: { thoughts: req.params.thoughtID } },
+                    { new: true }
+                )
             })
+            .then((user) => {
+                !user
+                    ? res.satatus(400).json({ warning: "error error updating user's thought, thought ID incorrect" })
+                    : res.json("deleted thought and updated user");
+            })
+            .catch((err) => {
+                console.log(err);
+                res.status(500).json(err);
+            });
     },
 
 };
-
 

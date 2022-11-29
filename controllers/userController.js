@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User, Thought } = require('../models');
 
 //module export to routes
 module.exports = {
@@ -41,9 +41,7 @@ module.exports = {
             .populate({
                 path: "friendList", select: 'userName'
             })
-            .populate({
-                path: "thoughts", select: '-__v'
-            })
+            .populate("thoughts")
             .then((userData) => {
                 //ternary statement: if userData does not exists:
                 !userData
@@ -92,7 +90,7 @@ module.exports = {
 
     //delete User
     deleteUser(req, res) {
-        User.findOneAndDelet({ _id: req.params.userID })
+        User.findOneAndDelete({ _id: req.params.userID })
             .then(deleted => {
                 !deleted
                     ? res.status(404).json({ warning: 'unknown User' })

@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose');
-const thoughtSchema = require('./thought');
+const { Thought } = require('./thought');
 
 //User template
 const userSchema = new Schema(
@@ -15,10 +15,13 @@ const userSchema = new Schema(
         //referencing _id of other users
         friendList: [{
             type: Schema.Types.ObjectId,
-            ref: 'user'
+            ref: 'User'
         }],
         //nested inside users
-        thoughts: [thoughtSchema],
+        thoughts: [{
+            type: Schema.Types.ObjectId,
+            ref: 'Thought'
+        }],
     },
     {
         toJSON: {
@@ -29,6 +32,11 @@ const userSchema = new Schema(
     }
 );
 //creating virtuals to show friendlist length:
+// userSchema.virtual('friendCount').get(function () {
+//     return this.friendList.length; //== reading undefined for some reason
+// });
+
+
 // userSchema.virtual('friendCount', {
 //     ref: 'user',
 //     localField: 'friendList',
@@ -37,6 +45,6 @@ const userSchema = new Schema(
 // });
 
 
-const User = model('user', userSchema);
+const User = model('User', userSchema);
 
 module.exports = User;
