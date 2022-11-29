@@ -92,8 +92,13 @@ module.exports = {
 
     //delete User
     deleteUser(req, res) {
-        User.findOneAndDelet({ _id: req.params.userID }, {})
-    }
+        User.findOneAndDelet({ _id: req.params.userID })
+            .then(deleted => {
+                !deleted
+                    ? res.status(404).json({ warning: 'unknown User' })
+                    : res.json(deleted);
+            })
+    },
 
 };
 
