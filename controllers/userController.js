@@ -7,9 +7,9 @@ module.exports = {
         User.find()
             //exclude __v
             .select('-__v')
-            .populate({
-                path: "friendList", select: 'userName',
-            })
+            // .populate({
+            //     path: "friendList", select: 'userName',
+            // })
             // .populate('friendCount')
             .then((allData) => {
                 console.log(allData)//.friendCount;
