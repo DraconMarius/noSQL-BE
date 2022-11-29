@@ -35,7 +35,7 @@ module.exports = {
             })
             .then((user) => {
                 !user
-                    ? res.satatus(400).json({ warning: "error linking thought to user, user ID incorrect" })
+                    ? res.satatus(404).json({ warning: "error linking thought to user, user ID incorrect" })
                     : res.json("created new thought");
             })
             .catch((err) => {
@@ -89,7 +89,7 @@ module.exports = {
             })
             .then((user) => {
                 !user
-                    ? res.satatus(400).json({ warning: "error error updating user's thought, thought ID incorrect" })
+                    ? res.satatus(404).json({ warning: "error error updating user's thought, thought ID incorrect" })
                     : res.json("deleted thought and updated user");
             })
             .catch((err) => {

@@ -8,7 +8,7 @@ const reactSchema = new Schema(
             max_Length: 80,
         },
         author: {
-            type: Schema.Types.ObjectId, ref: "user"
+            type: Schema.Types.ObjectId, ref: "User"
         },
         created_At: {
             type: Date,
