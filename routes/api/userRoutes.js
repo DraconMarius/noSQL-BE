@@ -9,8 +9,8 @@ router.route('/').get(getAllUsers).post(newUser).delete(deleteUser);
 // api/users/:userID
 router.route('/:userID').get(getByID).put(updateByID);
 
-// api/users/friend/:userID params is the user, req.body.friendID will be the user to add
-router.route('/friend/:userID').put(addFriend).delete(removeFriend);
+// api/users/:userID/friend/:friendID
+router.route('/:userID/friend/:friendID').put(addFriend).delete(removeFriend)
 
 
 module.exports = router;

@@ -66,9 +66,11 @@ module.exports = {
 
     //POST add Friend
     addFriend(req, res) {
-        User.findOneAndUpdate({ _id: req.params.userID }, { $addToSet: { friendList: req.body.friendID } }, {
-            new: true,
-        })
+        User.findOneAndUpdate(
+            { _id: req.params.userID },
+            { $addToSet: { friendList: req.params.friendID } },
+            { new: true },
+        )
             .then((userData) => {
                 !userData
                     ? res.status(404).json({ warning: 'error adding friend' })
@@ -78,9 +80,11 @@ module.exports = {
 
     //remove Friend
     removeFriend(req, res) {
-        User.findOneAndUpdate({ _id: req.params.userID }, { $pull: { friendList: req.body.friendID } }, {
-            new: true,
-        })
+        User.findOneAndUpdate(
+            { _id: req.params.userID },
+            { $pull: { friendList: req.params.friendID } },
+            { new: true },
+        )
             .then((userData) => {
                 !userData
                     ? res.status(404).json({ warning: 'error removing friend' })

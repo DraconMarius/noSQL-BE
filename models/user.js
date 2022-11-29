@@ -25,6 +25,7 @@ const userSchema = new Schema(
     },
     {
         toJSON: {
+            getters: true,
             virtuals: true,
         },
         //to exclude the extra id, since we already have the _id
@@ -32,8 +33,11 @@ const userSchema = new Schema(
     }
 );
 //creating virtuals to show friendlist length:
-// userSchema.virtual('friendCount').get(function () {
-//     return this.friendList.length; //== reading undefined for some reason
+userSchema.virtual('friendCount').get(function () {
+    return this.friendList.length; //== reading undefined for some reason
+});
+// userSchema.virtual('thoughtCount').get(function () {
+//     return this.thoughts.length;
 // });
 
 
