@@ -7,9 +7,9 @@ module.exports = {
         Thought.find()
             //exclude __v
             .select('-__v')
-            .populate({
-                path: "author", select: 'userName'
-            })
+            // .populate({
+            //     path: "author", select: 'userName'
+            // })
             .populate({
                 path: "reaction", select: 'reactBody, author'
             })
@@ -29,7 +29,7 @@ module.exports = {
             .then((newThoughtData) => {
                 return User.findOneAndUpdate(
                     { _id: req.body.author },
-                    { $addToSet: { thoughts: _id } },
+                    { $addToSet: { thoughts: newThoughtData._id } },
                     { new: true }
                 )
             })
@@ -51,9 +51,9 @@ module.exports = {
             .populate({
                 path: "reaction", select: 'reactBody, author'
             })
-            .populate({
-                path: "author", select: 'userName'
-            })
+            // .populate({
+            //     path: "author", select: 'userName'
+            // })
             .then((postData) => {
                 //ternary statement: if userData does not exists:
                 !postData
@@ -89,7 +89,7 @@ module.exports = {
             })
             .then((user) => {
                 !user
-                    ? res.satatus(404).json({ warning: "error error updating user's thought, thought ID incorrect" })
+                    ? res.status(404).json({ warning: "error error updating user's thought, thought ID incorrect" })
                     : res.json("deleted thought and updated user");
             })
             .catch((err) => {
