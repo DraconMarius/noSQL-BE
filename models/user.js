@@ -15,7 +15,7 @@ const userSchema = new Schema(
         //referencing _id of other users
         friendList: [{
             type: Schema.Types.ObjectId,
-            ref: 'User'
+            ref: 'user'
         }],
         //nested inside users
         thoughts: [thoughtSchema],
@@ -24,10 +24,14 @@ const userSchema = new Schema(
         toJSON: {
             virtuals: true,
         },
+        //to exclude the extra id, since we already have the _id
+        id: false,
     }
 );
 //creating virtuals to show friendlist length:
-userSchema.virtual('friendCount')
+thoughtSchema.virtual('friendCount').get(function () {
+    return this.friendList.length;
+});
 
 
 const User = model('user', userSchema);
